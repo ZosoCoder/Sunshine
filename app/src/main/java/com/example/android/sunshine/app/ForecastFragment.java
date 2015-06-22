@@ -1,5 +1,6 @@
 package com.example.android.sunshine.app;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,8 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,7 +66,7 @@ public class ForecastFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         // Generate some random data to populate listview
         String[] forecastArray = {
                 "Today - Sunny - 88/63",
@@ -75,7 +78,7 @@ public class ForecastFragment extends Fragment {
         };
         // Create ArrayList to add to ArrayAdapter for ListView
         List<String> weekForecast = new ArrayList<>(Arrays.asList(forecastArray));
-        forecastAdapter = new ArrayAdapter<String>(
+        forecastAdapter = new ArrayAdapter<>(
                 getActivity(),
                 R.layout.list_item_forecast,
                 R.id.list_item_forecast_textview,
@@ -83,6 +86,13 @@ public class ForecastFragment extends Fragment {
         // Attach ArrayAdapter to ListView. Set to display data created above
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(forecastAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String toastText = forecastAdapter.getItem(i);
+                Toast.makeText(getActivity(), toastText, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return rootView;
     }
