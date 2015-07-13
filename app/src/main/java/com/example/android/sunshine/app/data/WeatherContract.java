@@ -52,7 +52,7 @@ public class WeatherContract {
         // In order to uniquely pinpoint the locatin on the map when we launch the
         // map intent, we store the latitude and longitude as returned by openweathermap.
         public static final String COLUMN_COORD_LAT = "coord_lat";
-        public static final String COLUMN_COOR_LONG = "coord_long";
+        public static final String COLUMN_COORD_LONG = "coord_long";
     }
 
     /* Inner class that defines the table contents of the weather table */
